@@ -37,7 +37,7 @@ public class FacebookData extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		PrintWriter out = response.getWriter();
+		/*PrintWriter out = response.getWriter();
 		String username=request.getParameter("facebookuser");
 		FacebookClient publicOnlyFacebookClient  = new DefaultFacebookClient();
 		Connection<Post> publicSearch = publicOnlyFacebookClient .fetchConnection("Search",Post.class,Parameter.with("q",username),Parameter.with("type","post"));
@@ -45,7 +45,7 @@ public class FacebookData extends HttpServlet {
 
 FileOutputStream fos = new FileOutputStream("F:\\Java\\Facebook files\\Sample.txt", true);
 
-fos.write((publicSearch.getData().get(0).getMessage().getBytes()));
+fos.write((publicSearch.getData().get(0).getMessage().getBytes()));*/
 
 		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/PublicPost.jsp");
 		requestDispatcher.forward(request , response);
