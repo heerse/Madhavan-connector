@@ -28,14 +28,14 @@
 <title>Public Post of the user</title>
 </head>
 <h2>
-Following are the public post of the user
+Following are the public post on <%=request.getParameter("facebookuser") %>
 </h2>
 <body>
 <%
 try {
 String username=request.getParameter("facebookuser");
 //This will run only for valid access token
-FacebookClient publicOnlyFacebookClient  = new DefaultFacebookClient("");
+FacebookClient publicOnlyFacebookClient  = new DefaultFacebookClient("CAACEdEose0cBAGQx6QPU84bKT9vHkiZC3lzW0lYz2CiuFPZAZCHZAg8aZBbdoVTMmxyxX2qTUE535RKyC8dG2h7SOgEVqIrMcFvwl4G8Hp5a8RXkIp4lHx8nIl40qwgPRabLPu8vvTkhCWJYR11gcCwFP6nXH3ZCwZD");
 //Connection<Page> publicSearch = publicOnlyFacebookClient .fetchConnection("Search",Page.class,Parameter.with("q",username),Parameter.with("type","page"));
 /*while (publicSearch.iterator().hasNext()){
 int i=0;
