@@ -5,13 +5,13 @@ import com.restfb.Facebook;
 public class FqlUser {
 
 	  @Facebook
-	  String members;
+	  String message;
 	  
 	  @Facebook
-	  String description;
+	  String post_id;
 
 	  @Override
 	  public String toString() {
-	    return String.format("%s (%s)", members,description);
+	    return String.format("%s (%s)", message,post_id);
 	  }
 }

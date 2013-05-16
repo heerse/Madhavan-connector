@@ -1,3 +1,4 @@
+<%@page import="com.introviz.FqlUser1"%>
 <%@page import="com.restfb.exception.FacebookException"%>
 <%@page import="com.restfb.exception.FacebookResponseStatusException"%>
 <%@page import="com.restfb.exception.FacebookGraphException"%>
@@ -33,25 +34,27 @@ Following are the public post of the user
 <%
 try {
 String username=request.getParameter("facebookuser");
+//This will run only for valid access token
 FacebookClient publicOnlyFacebookClient  = new DefaultFacebookClient("");
-Connection<Page> publicSearch = publicOnlyFacebookClient .fetchConnection("Search",Page.class,Parameter.with("q",username),Parameter.with("type","page"));
+//Connection<Page> publicSearch = publicOnlyFacebookClient .fetchConnection("Search",Page.class,Parameter.with("q",username),Parameter.with("type","page"));
 /*while (publicSearch.iterator().hasNext()){
 int i=0;
 out.println("Public search: " + publicSearch.getData().get(i).getAbout() +"... ");
 i++;
 }*/
 
+String query1="Select page_id FROM page WHERE username="+username;
+List<FqlUser1> users1= publicOnlyFacebookClient.executeFqlQuery(query1,FqlUser1.class );
 
+out.println("page id: " + users1);
 
-//String query = "SELECT uid, name FROM user WHERE uid=220439 or uid=7901103";
-
-	String query = "SELECT members, description FROM page WHERE page_id="+username;
-
-//String query ="SELECT message FROM stream WHERE source_id in( SELECT page_id FROM page WHERE page_id="+username +")";
+String query = "SELECT message, post_id FROM stream WHERE source_id="+users1.get(0);
+//String query1="Select page_id FROM page WHERE username="+username;
+//String query = "SELECT message, post_id FROM stream WHERE source_id IN(Select page_id FROM WHERE username='AllState')";
 
 List<FqlUser> users=  publicOnlyFacebookClient.executeFqlQuery(query,FqlUser.class );
 
-out.println("Users: " + users);
+out.println("Public Posts on the page : " + users);
 
 }catch (FacebookJsonMappingException e) {
 	out.println("Jason Mapping error");
@@ -76,7 +79,9 @@ out.println("Users: " + users);
 	} catch (FacebookException e) {
 		out.println("Facebook Exception");
 	  // This is the catchall handler for any kind of Facebook exception
-
+	} catch (IndexOutOfBoundsException e) {
+		out.println("Invalid Keyword");
+	  // This is the catchall handler for any kind of Facebook exception
 	}
 /*FileOutputStream fos = new FileOutputStream("F:\\Java\\Facebook files\\Sample.txt", true);
 
